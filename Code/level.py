@@ -2,6 +2,7 @@ import pygame
 from settings import *
 from decor import Decor
 from player import Player
+from debug import debug
 class Level:
     def __init__(self):
 
@@ -21,13 +22,13 @@ class Level:
                 x = col_index * DECORSIZE
                 y = row_index * DECORSIZE
                 if col == 'x':
-                    Decor((x,y),[self.visible_sprites])
+                    Decor((x,y),[self.visible_sprites,self.obstacles_sprites])
                 if col == 'p':
-                    Player((x,y),[self.visible_sprites])
+                    self.player =Player((x,y),[self.visible_sprites])
 
 
     def run(self):
 
         # update and draw the game
         self.visible_sprites.draw(self.display_surface)
-        pass
+        self.visible_sprites.update()
