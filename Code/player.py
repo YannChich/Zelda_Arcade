@@ -20,7 +20,6 @@ class Player(pygame.sprite.Sprite):
             self.direction.y = 1
         else:
             self.direction.y = 0
-
         if keys[pygame.K_RIGHT]:
             self.direction.x = 1
         elif keys[pygame.K_LEFT]:
@@ -29,7 +28,10 @@ class Player(pygame.sprite.Sprite):
             self.direction.x = 0
 
     def move(self,speed):
-        self.rect.center += self.direction * speed # rect.center change the position of the player
+        # This if is to update the movement in diagonal
+        if self.direction.magnitude() != 0:
+            self.direction = self.direction.normalize()  # normalize the vector to the one
+        self.rect.center += self.direction * speed  # rect.center change the position of the player
     def update(self):
         self.input()
         self.move(self.speed)
