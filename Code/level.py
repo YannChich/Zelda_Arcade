@@ -32,3 +32,4 @@ class Level:
         # update and draw the game
         self.visible_sprites.draw(self.display_surface)
         self.visible_sprites.update()
+        debug(self.player.direction)
