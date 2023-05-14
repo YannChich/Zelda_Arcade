@@ -41,7 +41,7 @@ class YSortCameraGroup(pygame.sprite.Group):
         self.offset = pygame.math.Vector2()
 
     def custom_draw(self,player):
-        # move the camera to be focus on the player , also apply the offset on each sprites
+        # move the camera to be focus on the player , also apply the offset on each sprite
         self.offset.x = player.rect.centerx - self.half_width
         self.offset.y = player.rect.centery - self.half_height
         for sprite in self.sprites():  # getting all the sprite
