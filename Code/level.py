@@ -40,11 +40,12 @@ class YSortCameraGroup(pygame.sprite.Group):
         self.half_height = self.display_surface.get_size()[1] // 2  # ...                     the [1] = height
         self.offset = pygame.math.Vector2()
 
-    def custom_draw(self,player):
+    def custom_draw(self, player):
         # move the camera to be focus on the player , also apply the offset on each sprite
         self.offset.x = player.rect.centerx - self.half_width
         self.offset.y = player.rect.centery - self.half_height
-        for sprite in self.sprites():  # getting all the sprite
+
+        for sprite in sorted(self.sprites(), key=lambda sprite: sprite.rect.centery):
             offset_pos = sprite.rect.topleft - self.offset
             self.display_surface.blit(sprite.image, offset_pos)  # blit : bit block transfer draw the sprite on the
             # display and going to update to see them
