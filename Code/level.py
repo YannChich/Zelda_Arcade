@@ -16,6 +16,9 @@ class Level:
         self.create_map()
 
     def create_map(self):
+        layout = {
+            'boundary': import_csv_layout('../Map/map.FloorBlocks.csv')
+        }
         self.player = Player((2000,1430),[self.visible_sprites],self.obstacles_sprites)
 
     def run(self):
