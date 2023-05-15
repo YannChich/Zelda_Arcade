@@ -16,14 +16,7 @@ class Level:
         self.create_map()
 
     def create_map(self):
-        for row_index, row in enumerate(WORLD_MAP):
-            for col_index, col in enumerate(row):
-                x = col_index * DECORSIZE
-                y = row_index * DECORSIZE
-                if col == 'x':
-                    Decor((x, y), [self.visible_sprites, self.obstacles_sprites])
-                if col == 'p':
-                    self.player = Player((x, y), [self.visible_sprites], self.obstacles_sprites)
+        self.player = Player((2000,1430),[self.visible_sprites],self.obstacles_sprites)
 
     def run(self):
 
@@ -40,10 +33,18 @@ class YSortCameraGroup(pygame.sprite.Group):
         self.half_height = self.display_surface.get_size()[1] // 2  # ...                     the [1] = height
         self.offset = pygame.math.Vector2()
 
+        # creating the floor
+        self.floor_surface = pygame.image.load('../Graphics/tilemap/ground.png')
+        self.floor_rect = self.floor_surface.get_rect(topleft=(0, 0))
+
     def custom_draw(self, player):
         # move the camera to be focus on the player , also apply the offset on each sprite
         self.offset.x = player.rect.centerx - self.half_width
         self.offset.y = player.rect.centery - self.half_height
+
+        # drawing the floor_surface
+        floor_offset_pos =  self.floor_rect.topleft - self.offset
+        self.display_surface.blit(self.floor_surface,floor_offset_pos)
 
         for sprite in sorted(self.sprites(), key=lambda sprite: sprite.rect.centery):
             offset_pos = sprite.rect.topleft - self.offset
